@@ -38,7 +38,7 @@ bower_components
 build/Release
 
 # Dependency directories
-src/stock data/
+stocks data/
 node_modules/
 jspm_packages/
 
