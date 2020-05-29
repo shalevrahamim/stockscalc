@@ -18,29 +18,29 @@ const getStockData = async (query) => {
     return {success: true, data};
 }
 
-const getStockDailyData = async (symbol, isCompactSize = false) => {
+const getStockDailyData = async (symbol, outputsize) => {
     const prop = {
         'function':'TIME_SERIES_DAILY',
         symbol,
-        'outputsize': isCompactSize ? 'compact' : 'full'
+        outputsize
     }
     return await getStockData(createQuery(prop));
 }
 
-const getStockWeeklyData = async (symbol, isCompactSize = false) => {
+const getStockWeeklyData = async (symbol, outputsize) => {
     const prop = {
         'function': 'TIME_SERIES_WEEKLY',
         symbol,
-        'outputsize': isCompactSize ? 'compact' : 'full'
+        outputsize
     }
     return await getStockData(createQuery(prop));
 }
 
-const getStockMonthlyData = async (symbol, isCompactSize = false) => {
+const getStockMonthlyData = async (symbol, outputsize) => {
     const prop = {
         'function': 'TIME_SERIES_MONTHLY',
         symbol,
-        'outputsize': isCompactSize ? 'compact' : 'full'
+        outputsize
     }
     return await getStockData(createQuery(prop));
 }
