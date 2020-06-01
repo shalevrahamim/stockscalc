@@ -2,7 +2,7 @@ const mkdirp = require('mkdirp')
 const fs = require('fs');
 const snp500 = require('./company list/s&p500');
 const DataCollector = require('./dataCollector');
-
+const dataAnalyzer = require('./dataAnalyzer');
 const STORE_PATH = './stocks data/'
 
 const saveData = (path, data) => {
@@ -21,7 +21,11 @@ const saveData = (path, data) => {
     for (const folder of folders)
         await mkdirp(STORE_PATH + folder);
 })();
+
 let symbols = snp500.map(company => company.Symbol);
 let collector = new DataCollector(symbols);
-collector.on('onGetSMA', (symbol, data) => saveData(`SMA/${symbol}.json`, data).then((msg) => console.log(msg)));
-collector.getSMA();
+collector.on('onGetWeeklyStock', (symbol, data) => saveData(`weekly/${symbol}.json`, data).then((msg) => console.log(msg)));
+//collector.getWeeklyData();
+dataAnalyzer(symbols).then((res)=>{
+    console.log(res);
+})
