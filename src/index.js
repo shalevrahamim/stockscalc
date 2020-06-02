@@ -11,7 +11,7 @@ const saveData = (path, data) => {
         fs.writeFile(path , JSON.stringify(data), (err) => {
             if(err)
                 rej(err)
-            res(`${path} updated successfully`);
+            res(`${path} updated successfully.`);
         }); 
     });
 }
@@ -25,7 +25,13 @@ const saveData = (path, data) => {
 let symbols = snp500.map(company => company.Symbol);
 let collector = new DataCollector(symbols);
 collector.on('onGetWeeklyStock', (symbol, data) => saveData(`weekly/${symbol}.json`, data).then((msg) => console.log(msg)));
-//collector.getWeeklyData();
-dataAnalyzer(symbols).then((res)=>{
-    console.log(res);
-})
+console.log("Start get weekly data from server...");
+collector.getWeeklyData().then(()=>{
+    console.log('Get all weekly data successfully.');
+    console.log('Start analyzing data...');
+    return dataAnalyzer(symbols);
+}).then((res)=>{
+    res = Object.values(res);
+    res.sort((a, b) => a.points-b.points);
+    fs.writeFile('./conclusion.json', JSON.stringify(res), ()=>{console.log("Analyzed data successfully.", "Result on conclusion.json")});
+});

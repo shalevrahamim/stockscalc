@@ -225,11 +225,6 @@
         "Symbol": "ADI"
     },
     {
-        "Name": "Andeavor",
-        "Sector": "Energy",
-        "Symbol": "ANDV"
-    },
-    {
         "Name": "ANSYS",
         "Sector": "Information Technology",
         "Symbol": "ANSS"
@@ -340,11 +335,6 @@
         "Symbol": "BAX"
     },
     {
-        "Name": "BB&T Corporation",
-        "Sector": "Financials",
-        "Symbol": "BBT"
-    },
-    {
         "Name": "Becton Dickinson",
         "Sector": "Health Care",
         "Symbol": "BDX"
@@ -415,19 +405,9 @@
         "Symbol": "AVGO"
     },
     {
-        "Name": "Brown-Forman Corp.",
-        "Sector": "Consumer Staples",
-        "Symbol": "BF.B"
-    },
-    {
         "Name": "C. H. Robinson Worldwide",
         "Sector": "Industrials",
         "Symbol": "CHRW"
-    },
-    {
-        "Name": "CA, Inc.",
-        "Sector": "Information Technology",
-        "Symbol": "CA"
     },
     {
         "Name": "Cabot Oil & Gas",
@@ -665,11 +645,6 @@
         "Symbol": "CCI"
     },
     {
-        "Name": "CSRA Inc.",
-        "Sector": "Information Technology",
-        "Symbol": "CSRA"
-    },
-    {
         "Name": "CSX Corp.",
         "Sector": "Industrials",
         "Symbol": "CSX"
@@ -775,11 +750,6 @@
         "Symbol": "DWDP"
     },
     {
-        "Name": "Dr Pepper Snapple Group",
-        "Sector": "Consumer Staples",
-        "Symbol": "DPS"
-    },
-    {
         "Name": "DTE Energy Co.",
         "Sector": "Utilities",
         "Symbol": "DTE"
@@ -848,11 +818,6 @@
         "Name": "Entergy Corp.",
         "Sector": "Utilities",
         "Symbol": "ETR"
-    },
-    {
-        "Name": "Envision Healthcare",
-        "Sector": "Health Care",
-        "Symbol": "EVHC"
     },
     {
         "Name": "EOG Resources",
@@ -1048,11 +1013,6 @@
         "Name": "General Electric",
         "Sector": "Industrials",
         "Symbol": "GE"
-    },
-    {
-        "Name": "General Growth Properties Inc.",
-        "Sector": "Real Estate",
-        "Symbol": "GGP"
     },
     {
         "Name": "General Mills",
@@ -1385,11 +1345,6 @@
         "Symbol": "LB"
     },
     {
-        "Name": "L-3 Communications Holdings",
-        "Sector": "Industrials",
-        "Symbol": "LLL"
-    },
-    {
         "Name": "Laboratory Corp. of America Holding",
         "Sector": "Health Care",
         "Symbol": "LH"
@@ -1585,11 +1540,6 @@
         "Symbol": "MDLZ"
     },
     {
-        "Name": "Monsanto Co.",
-        "Sector": "Materials",
-        "Symbol": "MON"
-    },
-    {
         "Name": "Monster Beverage",
         "Sector": "Consumer Staples",
         "Symbol": "MNST"
@@ -1648,11 +1598,6 @@
         "Name": "Newell Brands",
         "Sector": "Consumer Discretionary",
         "Symbol": "NWL"
-    },
-    {
-        "Name": "Newfield Exploration Co",
-        "Sector": "Energy",
-        "Symbol": "NFX"
     },
     {
         "Name": "Newmont Mining Corporation",
@@ -1858,11 +1803,6 @@
         "Name": "PPL Corp.",
         "Sector": "Utilities",
         "Symbol": "PPL"
-    },
-    {
-        "Name": "Praxair Inc.",
-        "Sector": "Materials",
-        "Symbol": "PX"
     },
     {
         "Name": "Principal Financial Group",

@@ -2,7 +2,7 @@ const fs = require('fs')
 
 const getFileData = (func, symbol) => {
     return new Promise((res, rej) => {
-        fs.readFile(`../stocks data/${func}/${symbol}.json`, (err, data)=> {
+        fs.readFile(`./stocks data/${func}/${symbol}.json`, (err, data)=> {
             if(err)
                 rej(err);
             else
@@ -11,7 +11,7 @@ const getFileData = (func, symbol) => {
     });
 }
 
-const calculateWeeks = (numOfWeeks, data)=>{
+const calculateWeeksData = (numOfWeeks, data)=>{
     const ret = {};
     let i = 0;
     let highest = data[0].high;
@@ -48,15 +48,16 @@ const analyzeSymbol = async (symbol) =>
     ret['currentPosition'] = weeksData[0].close;
     for(let numOfWeeks of WEEKS_ANALYZE_NUMBERS)
     {
-        let calculationWeeks = calculateWeeks(numOfWeeks, weeksData);
+        let calculationWeeks = calculateWeeksData(numOfWeeks, weeksData);
         calculationWeeks['ratio'] = ret['currentPosition']/calculationWeeks['avg'];
         calculationWeeks['points'] = (1-calculationWeeks['ratio'])*calculationWeeks['weeks'];
         points += calculationWeeks['points'];
         if(calculationWeeks['weeks'] !== numOfWeeks)
         {
-            ret[numOfWeeks] = calculationWeeks;
+            ret['max'] = calculationWeeks;
             break;
         }
+        delete calculationWeeks['weeks'];
         ret[`${numOfWeeks} Weeks`] = calculationWeeks;
     }
     ret['points'] = points;

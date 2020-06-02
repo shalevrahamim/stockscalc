@@ -1,5 +1,4 @@
 const EventEmitter = require('events');
-const fs = require('fs');
 
 const {getStockDailyData, getSMAData, getStockWeeklyData} = require('./stockDataAPI');
 
@@ -9,20 +8,11 @@ const waitMinute = ()=>{
         setTimeout(()=>res(), 1024*60);
     });
 }
-const lala = (symbol)=>{
-    return new Promise((res, rej)=>{
-        fs.readFile(`./stocks data/weekly/${symbol}.json`, (err, data)=>{
-            res(err);
-        })
-    })
-}
+
 const getCompeniesData = async(compeniesSymbol, stockDataFunction, cb) => {
     for(let symbol of compeniesSymbol)
     {
-        const err = await lala(symbol);
-        if(!err)
-            continue;
-        console.log(`get data of ${symbol}`);
+        console.log(`get ${symbol} data...`);
         let data = await stockDataFunction(symbol);
         if(data.success)
             cb(symbol, data.data);
@@ -38,7 +28,7 @@ const getCompeniesData = async(compeniesSymbol, stockDataFunction, cb) => {
             {
                 if(data.error)
                     continue;
-                console.log("Something wrong")
+                console.log('Something wrong')
                 break;
             }
         }
@@ -55,19 +45,19 @@ class DataCollector extends EventEmitter
         this.outputsize = 'full';
     }
 
-    getDailyData() {
+    async getDailyData() {
         const getDataFuncion = (symbol) => getStockDailyData(symbol, this.outputsize);
-        getCompeniesData(this.compeniesSymbol, getDataFuncion, (symbol, data)=>{this.emit('onGetDailyStock', symbol, data)});
+        await getCompeniesData(this.compeniesSymbol, getDataFuncion, (symbol, data)=>{this.emit('onGetDailyStock', symbol, data)});
     }
 
-    getWeeklyData() {
+    async getWeeklyData() {
         const getDataFuncion = (symbol) => getStockWeeklyData(symbol, this.outputsize);
-        getCompeniesData(this.compeniesSymbol, getDataFuncion, (symbol, data)=>{this.emit('onGetWeeklyStock', symbol, data)});
+        await getCompeniesData(this.compeniesSymbol, getDataFuncion, (symbol, data)=>{this.emit('onGetWeeklyStock', symbol, data)});
     }
 
-    getSMA() {
+    async getSMA() {
         const getDataFuncion = (symbol) => getSMAData(symbol, this.interval, this.timePeriod);
-        getCompeniesData(this.compeniesSymbol, getDataFuncion, (symbol, data)=>{this.emit('onGetSMA', symbol, data)});
+        await getCompeniesData(this.compeniesSymbol, getDataFuncion, (symbol, data)=>{this.emit('onGetSMA', symbol, data)});
     }
 }
 
