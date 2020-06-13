@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/shalevrahamim/AutoInvest#readme",
   "dependencies": {
     "axios": "^0.19.2",
-    "mkdirp": "^1.0.4"
+    "mkdirp": "^1.0.4",
+    "bluebird": "3.7.2"
   }
 }

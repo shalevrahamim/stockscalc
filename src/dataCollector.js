@@ -50,9 +50,13 @@ class DataCollector extends EventEmitter
         await getCompeniesData(this.compeniesSymbol, getDataFuncion, (symbol, data)=>{this.emit('onGetDailyStock', symbol, data)});
     }
 
-    async getWeeklyData() {
-        const getDataFuncion = (symbol) => getStockWeeklyData(symbol, this.outputsize);
-        await getCompeniesData(this.compeniesSymbol, getDataFuncion, (symbol, data)=>{this.emit('onGetWeeklyStock', symbol, data)});
+    async fetchWeeklyData() {
+        const data = (symbol) => {
+            return getStockWeeklyData(symbol, this.outputsize);
+        };
+        await getCompeniesData(this.compeniesSymbol, data, (symbol, data) => {
+            this.emit('weeklyStock', symbol, data);
+        });
     }
 
     async getSMA() {

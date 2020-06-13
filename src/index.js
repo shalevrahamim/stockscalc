@@ -1,37 +1,33 @@
 const mkdirp = require('mkdirp')
 const fs = require('fs');
+const Promise = require('bluebird');
 const snp500 = require('./company list/s&p500');
 const DataCollector = require('./dataCollector');
 const dataAnalyzer = require('./dataAnalyzer');
 const STORE_PATH = './stocks data/'
 
-const saveData = (path, data) => {
-    return new Promise((res, rej) => {
-        path = STORE_PATH + path;
-        fs.writeFile(path , JSON.stringify(data), (err) => {
-            if(err)
-                rej(err)
-            res(`${path} updated successfully.`);
-        }); 
+const save = async ({ path, data }) => {
+    const writeFile = util.promisify(fs.writeFile);
+    await writeFile(path, JSON.stringify(data))
+};
+
+const init = async () => {
+    const metrics = ['SMA'];
+    const intervals = ['daily', 'weekly', 'monthly'];
+    const KPIs = [...metrics, ...intervals];
+    Promise.each(KPIs, async (target) => {
+        await mkdirp(STORE_PATH + target);
     });
-}
+};
 
-(async () => {
-    let folders = ['daily', 'weekly', 'mounthly', 'SMA'];
-    for (const folder of folders)
-        await mkdirp(STORE_PATH + folder);
-})();
-
-let symbols = snp500.map(company => company.Symbol);
-let collector = new DataCollector(symbols);
-collector.on('onGetWeeklyStock', (symbol, data) => saveData(`weekly/${symbol}.json`, data).then((msg) => console.log(msg)));
-console.log("Start get weekly data from server...");
-collector.getWeeklyData().then(()=>{
-    console.log('Get all weekly data successfully.');
-    console.log('Start analyzing data...');
-    return dataAnalyzer(symbols);
-}).then((res)=>{
-    res = Object.values(res);
-    res.sort((a, b) => a.points-b.points);
-    fs.writeFile('./conclusion.json', JSON.stringify(res), ()=>{console.log("Analyzed data successfully.", "Result on conclusion.json")});
+init().then(async () => {
+    const symbols = snp500.map(company => company.Symbol);
+    const collector = new DataCollector(symbols);
+    collector.on('weeklyStock', async (symbol, data) => {
+        await save(`weekly/${symbol}.json`, data);
+    });
+    const weekly = await collector.fetchWeeklyData();
+    const holdings = Object.values(weekly);
+    holdings.sort((a, b) => a.points - b.points);
+    fs.writeFile('./conclusions.json', JSON.stringify(holdings));
 });
