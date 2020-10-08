@@ -1,1 +1,1 @@
-# AutoInvest
+# stockscalc
