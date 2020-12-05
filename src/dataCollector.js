@@ -17,14 +17,18 @@ const getCompeniesData = async (compeniesSymbol, stockDataFunction, cb) => {
   for (let symbol of compeniesSymbol) {
     console.log(`get ${symbol} data...`);
     let data = await stockDataFunction(symbol);
-    if (data.success) cb(symbol, data.data);
+    if (data.success)
+      cb(symbol, data.data);
     else {
-      if (data.error) continue;
+      if (data.error)
+        continue;
       await waitMinute();
       data = await stockDataFunction(symbol);
-      if (data.success) cb(symbol, data.data);
+      if (data.success)
+        cb(symbol, data.data);
       else {
-        if (data.error) continue;
+        if (data.error)
+          continue;
         console.log("Something wrong");
         break;
       }
